@@ -38,19 +38,18 @@ export class StatementsRepository implements IStatementsRepository {
   async getUserBalance({ user_id, with_statement = false }: IGetBalanceDTO):
     Promise<
       { balance: number } | { balance: number, statement: Statement[] }
-    >
-  {
+    > {
     const statement = await this.repository.find({
       where: { user_id }
     });
 
     const balance = statement.reduce((acc, operation) => {
       if (operation.type === 'deposit') {
-        return acc + operation.amount;
+        return Number(acc) + Number(operation.amount);
       } else {
-        return acc - operation.amount;
+        return Number(acc) - Number(operation.amount);
       }
-    }, 0)
+    }, 0);
 
     if (with_statement) {
       return {

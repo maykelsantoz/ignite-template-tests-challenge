@@ -6,9 +6,12 @@ import cors from 'cors';
 
 import './database';
 import './shared/container';
-import { router } from './routes';
 import { AppError } from './shared/errors/AppError';
+import { createConnection } from 'typeorm';
 
+import { router } from './routes';
+
+createConnection();
 const app = express();
 
 app.use(cors());
