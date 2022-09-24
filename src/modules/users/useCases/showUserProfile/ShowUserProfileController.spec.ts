@@ -12,7 +12,7 @@ describe("Show profile user", () => {
 
     await request(app).post("/api/v1/users").send({
       name: "user name",
-      email: "user@challenger.com.br",
+      email: "user1@challenger.com.br",
       password: "userpassword",
     });
   });
@@ -24,7 +24,7 @@ describe("Show profile user", () => {
 
   it("should be able to list user's profile", async () => {
     const responseToken = await request(app).post("/api/v1/sessions").send({
-      email: "user@challenger.com.br",
+      email: "user1@challenger.com.br",
       password: "userpassword",
     });
 

@@ -12,7 +12,7 @@ describe('Create User', () => {
     createUserUseCase = new CreateUserUseCase(inMemoryUsersRepository);
   });
 
-  it('should able tocreate a new User', async () => {
+  it('should able to create a new User', async () => {
     const user = await createUserUseCase.execute({
       name: "user name",
       email: "user@challenger.com.br",

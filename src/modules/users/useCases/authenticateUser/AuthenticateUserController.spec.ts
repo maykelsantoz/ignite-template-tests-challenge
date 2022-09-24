@@ -41,7 +41,28 @@ describe("Authenticate User", () => {
     expect(responseToken.status).toBe(200)
     expect(responseToken.body).toHaveProperty("token")
     expect(responseToken.body.user.email).toEqual(newUser.email)
-
     expect(token).not.toBeUndefined()
+  });
+
+  it("should not be able to authenticate a non-existing user", async () => {
+    const responseToken = await request(app).post("/api/v1/sessions").send({
+      email: "usernonexistent@email.com",
+      password: "usernonexistentpassword",
+    });
+
+    expect(responseToken.status).toBe(401)
+    expect(responseToken.body.message).toEqual('Incorrect email or password')
+    expect(responseToken.body.token).toBe(undefined)
+  });
+
+  it("should not be able to authenticate user with wrong password", async () => {
+    const responseToken = await request(app).post("/api/v1/sessions").send({
+      email: newUser.email,
+      password: "wronguserpassword",
+    });
+
+    expect(responseToken.status).toBe(401)
+    expect(responseToken.body.message).toEqual('Incorrect email or password')
+    expect(responseToken.body.token).toBe(undefined)
   });
 });

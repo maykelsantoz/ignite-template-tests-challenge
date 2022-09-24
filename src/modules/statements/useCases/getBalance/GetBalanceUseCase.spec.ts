@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { OperationType } from './../../entities/Statement';
 import { CreateUserUseCase } from './../../../users/useCases/createUser/CreateUserUseCase';
 import { InMemoryStatementsRepository } from './../../repositories/in-memory/InMemoryStatementsRepository';

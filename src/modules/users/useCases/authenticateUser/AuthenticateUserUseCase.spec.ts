@@ -25,12 +25,12 @@ describe("Show profile user", () => {
 
     await createUserUseCase.execute(user);
 
-    const result = await authenticateUserUseCase.execute({
+    const responseToken = await authenticateUserUseCase.execute({
       email: user.email,
       password: user.password,
     });
 
-    expect(result).toHaveProperty("token")
+    expect(responseToken).toHaveProperty("token")
   });
 
   it("should not be able to authenticate nonexistent user", () => {
