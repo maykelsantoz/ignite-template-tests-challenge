@@ -1,4 +1,3 @@
-import { Console } from "console";
 import { inject, injectable } from "tsyringe";
 
 import { IUsersRepository } from "../../../users/repositories/IUsersRepository";
@@ -24,6 +23,14 @@ export class CreateStatementUseCase {
     }
 
     if (type === 'withdraw') {
+      const { balance } = await this.statementsRepository.getUserBalance({ user_id });
+
+      if (balance < amount) {
+        throw new CreateStatementError.InsufficientFunds()
+      }
+    }
+
+    if (type === 'transfer') {
       const { balance } = await this.statementsRepository.getUserBalance({ user_id });
 
       if (balance < amount) {
